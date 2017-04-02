@@ -38,6 +38,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.insertSubview(refreshControl, at: 0)
 
         self.networkOfflineView.isHidden = true
+        self.networkOfflineView.layer.zPosition = CGFloat.greatestFiniteMagnitude
         
         KVSpinnerView.settings.animationStyle = KVSpinnerViewSettings.AnimationStyle.infinite
         KVSpinnerView.settings.linesCount = 1

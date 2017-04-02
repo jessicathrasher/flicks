@@ -38,6 +38,8 @@ class DetailViewController: UIViewController {
             posterImageView.setImageWith(imageUrl!)
         }
         
+        infoView.backgroundColor = Config.flicksDarkGreenColor
+
         // Do any additional setup after loading the view.
     }
 

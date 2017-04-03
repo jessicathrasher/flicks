@@ -26,7 +26,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] 
+- [X] Detail view shows overview background color as average of poster image 
 
 ## Video Walkthrough
 

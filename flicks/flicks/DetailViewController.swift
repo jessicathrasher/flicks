@@ -8,8 +8,7 @@
 
 import UIKit
 import AFNetworking
-
-
+import ChameleonFramework
 
 class DetailViewController: UIViewController {
 
@@ -46,6 +45,7 @@ class DetailViewController: UIViewController {
                 placeholderImage: nil,
                 success: { (imageRequest, imageResponse, image) -> Void in
                     self.posterImageView.image = image
+                    self.infoView.backgroundColor = UIColor(averageColorFrom: self.posterImageView.image!)
 
                     // After loading smaller res image - replace with full size
                     self.posterImageView.setImageWith(
@@ -57,16 +57,17 @@ class DetailViewController: UIViewController {
                     },
                         failure: { (imageRequest, imageResponse, error) -> Void in
                             // do something for the failure condition
+                            self.infoView.backgroundColor = Config.flicksDarkGreenColor
+
                     })
             },
                 failure: { (imageRequest, imageResponse, error) -> Void in
                     // do something for the failure condition
+                    self.infoView.backgroundColor = Config.flicksDarkGreenColor
             })
 
         }
         
-        infoView.backgroundColor = Config.flicksDarkGreenColor
-
         // Do any additional setup after loading the view.
     }
 

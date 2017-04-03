@@ -9,6 +9,8 @@
 import UIKit
 import AFNetworking
 
+
+
 class DetailViewController: UIViewController {
 
     @IBOutlet weak var infoView: UIView!
@@ -34,8 +36,33 @@ class DetailViewController: UIViewController {
         
         if let posterPath = movie["poster_path"] as? String {
             let baseURL = "https://image.tmdb.org/t/p/w500"
-            let imageUrl = URL(string: baseURL + posterPath)
-            posterImageView.setImageWith(imageUrl!)
+            let fullSizeBaseURL = "https://image.tmdb.org/t/p/original"
+
+            let imageRequest = URLRequest(url: URL(string: baseURL + posterPath)!)
+            let fullSizeImageRequest = URLRequest(url: URL(string: fullSizeBaseURL + posterPath)!)
+
+            posterImageView.setImageWith(
+                imageRequest,
+                placeholderImage: nil,
+                success: { (imageRequest, imageResponse, image) -> Void in
+                    self.posterImageView.image = image
+
+                    // After loading smaller res image - replace with full size
+                    self.posterImageView.setImageWith(
+                        fullSizeImageRequest,
+                        placeholderImage: nil,
+                        success: { (imageRequest, imageResponse, image) -> Void in
+
+                            self.posterImageView.image = image
+                    },
+                        failure: { (imageRequest, imageResponse, error) -> Void in
+                            // do something for the failure condition
+                    })
+            },
+                failure: { (imageRequest, imageResponse, error) -> Void in
+                    // do something for the failure condition
+            })
+
         }
         
         infoView.backgroundColor = Config.flicksDarkGreenColor
